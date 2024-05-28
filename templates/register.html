@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}Rejestracja{% endblock %}
+
+{% block content %}
+<div class="credentials-wrap">
+    <div class="credentials">
+        <form class="form validate-form" method="POST" action="/register">
+            <span class="form-title wielkie">Rejestracja</span>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">@</span>
+                <input type="text" name="email" class="form-control" placeholder="Podaj adres e-mail" aria-label="Username" aria-describedby="basic-addon1">
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">***</span>
+                <input type="password" name="password" class="form-control" placeholder="Podaj hasło" aria-label="Password" aria-describedby="basic-addon1">
+            </div>
+            <div class="right">
+                <button type="submit" class="btn btn-primary wielkie">Zarejestruj się</button>
+            </div>
+            <div class="aditional-info">
+                {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <ul class="flashes txt3">
+                        {% for message in messages %}
+                            <li>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                {% endwith %}
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

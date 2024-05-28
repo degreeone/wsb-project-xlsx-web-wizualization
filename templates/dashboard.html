@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}Wykres{% endblock %}
+
+{% block content %}
+<div class="dashboard-wrap">
+    <form method="post" action="{{ url_for('dashboard') }}" class="row g-3 chart-selectors">
+        <div class="col-12">
+            <label for="product" class="form-label">Towar lub usługa:</label>
+            <select id="product" name="product" class="form-select">
+                {% for product in products %}
+                    <option value="{{ product }}" {% if product == selected_product %} selected {% endif %}>{{ product }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-2">
+            <label for="start_year" class="form-label">Rok początkowy:</label>
+            <input type="number" id="start_year" name="start_year" min="{{ min_year }}" max="{{ max_year }}" value="{{ selected_start_year or min_year }}" class="form-select-lg"><br>
+        </div>
+        <div class="col-2">
+            <label for="end_year" class="form-label">Rok końcowy:</label>
+            <input type="number" id="end_year" name="end_year" min="{{ min_year }}" max="{{ max_year }}" value="{{ selected_end_year or max_year }}" class="form-select-lg"><br>
+        </div>
+        <div class="col-2 flex-end">
+            <button type="submit" class="btn btn-primary wielkie">Aktualizuj wykres</button>
+        </div>
+    </form>
+    {% if plot_url %}
+    <div class="plot">
+        <img src="{{ plot_url }}" alt="Wykres">
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

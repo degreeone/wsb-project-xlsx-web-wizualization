@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Strona główna{% endblock %}</title>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="container-fluid">
+    <nav>
+        <ul>
+          <li><a href="/" class="btn btn-outline-light btn-lg">Strona startowa</a></li>
+          {% if not current_user.is_authenticated %}
+          <li><a href="/login" class="btn btn-outline-light btn-lg">Zaloguj</a></li>
+          <li><a href="/register" class="btn btn-outline-light btn-lg">Zarejestruj</a></li>
+          {% endif %}
+          {% if current_user.is_authenticated %}
+          <li><a href="/dashboard" class="btn btn-outline-light btn-lg">Wykres</a></li>
+          <li><a href="/logout" class="btn btn-outline-light btn-lg">Wyloguj</a></li>
+          {% endif %}
+          {% block menu %}{% endblock %}
+        </ul>
+    </nav>
+    <div class="main-content">
+      {% block content %}
+      <div class="welcome-wrap">
+        <h1>Witam na mojej stronie!</h1>
+        <p>Strona na podstawie danych z Banku Danych Polska pozwala na analizę cen towarów i usług w latach 1950-1998. Aby uzyskać dane do tych danych należy się zarejestrować.</p>
+      </div>
+      {% endblock %}
+    </div>
+  </div>
+</body>
+</html>
